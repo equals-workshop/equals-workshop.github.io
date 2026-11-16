@@ -41,14 +41,69 @@
     <h1 class="home-title">
         The 1st International Workshop on Embodied AI Quality and Safety (EQualS 2027)
     </h1>
-    <img
-            class="city-banner"
-            src="assets/hero/equals-embodied-quality-safety.png"
-            alt="Embodied AI quality and safety: simulation testing, physical robot interaction, runtime monitoring, and engineering evidence"
-            width="2172"
-            height="724"
-            fetchpriority="high"
-    >
+<!--    <img-->
+<!--            class="city-banner"-->
+<!--            src="assets/hero/equals-embodied-quality-safety.png"-->
+<!--            alt="Embodied AI quality and safety: simulation testing, physical robot interaction, runtime monitoring, and engineering evidence"-->
+<!--            width="2172"-->
+<!--            height="724"-->
+<!--            fetchpriority="high"-->
+<!--    >-->
+    <div class="city-carousel" id="cityCarousel">
+        <div class="carousel-track">
+
+            <img
+                    class="city-banner"
+                    src="assets/hero/fig1.jpg"
+                    alt="Shenzhen"
+                    width="2172"
+                    height="724"
+                    fetchpriority="high"
+            >
+
+            <img
+                    class="city-banner"
+                    src="assets/hero/fig2.jpg"
+                    alt="Shenzhen"
+                    width="2172"
+                    height="724"
+            >
+
+            <img
+                    class="city-banner"
+                    src="assets/hero/equals-embodied-quality-safety.png"
+                    alt="Physical robot interaction"
+                    width="2172"
+                    height="724"
+            >
+
+<!--            <img-->
+<!--                    class="city-banner"-->
+<!--                    src="assets/hero/banner-4.png"-->
+<!--                    alt="Runtime monitoring and engineering evidence"-->
+<!--                    width="2172"-->
+<!--                    height="724"-->
+<!--            >-->
+
+        </div>
+
+        <!-- 左右切换按钮 -->
+        <button class="carousel-btn prev" aria-label="Previous slide">
+            &#10094;
+        </button>
+
+        <button class="carousel-btn next" aria-label="Next slide">
+            &#10095;
+        </button>
+
+        <!-- 底部圆点 -->
+        <div class="carousel-dots">
+            <button class="dot active" aria-label="Slide 1"></button>
+            <button class="dot" aria-label="Slide 2"></button>
+            <button class="dot" aria-label="Slide 3"></button>
+<!--            <button class="dot" aria-label="Slide 4"></button>-->
+        </div>
+    </div>
 
     <section class="welcome" aria-labelledby="welcome-title">
         <h2 id="welcome-title">Welcome</h2>
@@ -208,5 +263,67 @@
         <p><a href="https://conf.researchr.org/home/fse-2027" target="_blank" rel="noopener noreferrer">FSE 2027</a></p>
     </div>
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const carousel = document.getElementById('cityCarousel');
+
+        if (!carousel) {
+            console.error('没有找到轮播图容器');
+            return;
+        }
+
+        const track = carousel.querySelector('.carousel-track');
+        const slides = carousel.querySelectorAll('.city-banner');
+        const dots = carousel.querySelectorAll('.dot');
+        const prevBtn = carousel.querySelector('.prev');
+        const nextBtn = carousel.querySelector('.next');
+
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        console.log('轮播图初始化成功，图片数量：', totalSlides);
+
+        function showSlide(index) {
+
+            currentIndex = (index + totalSlides) % totalSlides;
+
+            track.style.transform =
+                'translateX(-' + currentIndex * 100 + '%)';
+
+            dots.forEach(function (dot, i) {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+
+            console.log('当前图片：', currentIndex + 1);
+        }
+
+        // 下一张
+        nextBtn.addEventListener('click', function () {
+            showSlide(currentIndex + 1);
+        });
+
+        // 上一张
+        prevBtn.addEventListener('click', function () {
+            showSlide(currentIndex - 1);
+        });
+
+        // 点击圆点
+        dots.forEach(function (dot, index) {
+            dot.addEventListener('click', function () {
+                showSlide(index);
+            });
+        });
+
+        // 每隔 3 秒自动切换
+        setInterval(function () {
+            showSlide(currentIndex + 1);
+        }, 3000);
+
+        // 初始化
+        showSlide(0);
+
+    });
+</script>
 </body>
 </html>
